@@ -6,19 +6,21 @@ tags: App Engine, Laravel, PHP
 date_published: 2019-01-31
 ---
 
-## Laravel
+Brent Shaffer | Developer Programs Engineer | Google
+
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
 
 [Laravel][laravel] is an open source web framework for PHP developers that encourages the use of the
 model-view-controller (MVC) pattern.
 
-You can check out [PHP on Google Cloud Platform][php-gcp] (GCP) to get an
-overview of PHP and learn ways to run PHP apps on GCP.
+You can check out [PHP on Google Cloud][php-gcp] to get an
+overview of PHP and learn ways to run PHP apps on Google Cloud.
 
 ## Prerequisites
 
-1. Create a project in the [Google Cloud Platform Console](https://console.cloud.google.com/project).
+1. Create a project in the [Cloud Console](https://console.cloud.google.com/project).
 1. Enable billing for your project.
-1. Install and initialize the [Google Cloud SDK][cloud_sdk].
+1. Install and initialize the [Cloud SDK][cloud_sdk].
 
 All code for this tutorial is available in the [PHP samples repository][laravel-framework-sample].
 
@@ -102,7 +104,7 @@ from laravel.com.
         gcloud app deploy
 
 1.  Visit `http://YOUR_PROJECT_ID.appspot.com` to see the Laravel welcome page.
-    Replace `YOUR_PROJECT_ID` with the ID of your GCP project.
+    Replace `YOUR_PROJECT_ID` with the ID of your Google Cloud project.
 
     ![Laravel welcome page][laravel-welcome]
 
@@ -165,7 +167,10 @@ Laravel, you need to manually add the `DB_SOCKET` value to
           DB_DATABASE: YOUR_DB_DATABASE
           DB_USERNAME: YOUR_DB_USERNAME
           DB_PASSWORD: YOUR_DB_PASSWORD
+          ## for MYSQL, use DB_SOCKET:
           DB_SOCKET: "/cloudsql/YOUR_CONNECTION_NAME"
+          ## for PostgreSQL, use DB_HOST:
+          # DB_HOST: "/cloudsql/YOUR_CONNECTION_NAME"
 
 1.  Replace `YOUR_DB_DATABASE`, `YOUR_DB_USERNAME`, `YOUR_DB_PASSWORD`,
     and `YOUR_CONNECTION_NAME` with the values you created for your Cloud SQL
@@ -238,7 +243,7 @@ You can write logs to Stackdriver Logging from PHP applications by using the Sta
         Log::info("Hello Stackdriver! This will show up as log level INFO!");
 
     For example, add the following route to `routes/web.php` and browse to
-    `/exception/my-test-exception` to see an exception appear in Error Handling:
+    `/log/some-message-here` to see a log entry in Logging:
 
         Route::get('/log/{message}', function ($message) {
             Log::info("Hello my log, message: $message");
@@ -297,13 +302,13 @@ You can send error reports to Stackdriver Error Reporting from PHP applications 
 [cloud_sdk]: https://cloud.google.com/sdk/
 [composer-json]: https://storage.googleapis.com/gcp-community/tutorials/run-laravel-on-appengine-flexible/composer-json.png
 [cloudsql-create]: https://cloud.google.com/sql/docs/mysql/create-instance
-[cloudsql-install]: https://cloud.google.com/sql/docs/mysql/connect-external-app#install
+[cloudsql-install]: https://cloud.google.com/sql/docs/mysql/connect-admin-proxy#install
 [cloudsql-admin-api]: https://console.cloud.google.com/flows/enableapi?apiid=sqladmin
-[laravel-framework-sample]: https://github.com/GoogleCloudPlatform/php-docs-samples/tree/master/appengine/php72/laravel-framework
-[bootstrap-app-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/php72/laravel-framework/bootstrap/app.php
-[config-view-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/php72/laravel-framework/config/view.php
-[app-dbsessions-yaml]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/php72/laravel-framework/app-dbsessions.yaml
-[app-logging-createstackdriverlogger-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/php72/laravel-framework/app/Logging/CreateStackdriverLogger.php
-[config-logging-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/php72/laravel-framework/config/logging.php
+[laravel-framework-sample]: https://github.com/GoogleCloudPlatform/php-docs-samples/tree/master/appengine/standard/laravel-framework
+[bootstrap-app-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/standard/laravel-framework/bootstrap/app.php
+[config-view-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/standard/laravel-framework/config/view.php
+[app-dbsessions-yaml]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/standard/laravel-framework/app-dbsessions.yaml
+[app-logging-createstackdriverlogger-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/standard/laravel-framework/app/Logging/CreateStackdriverLogger.php
+[config-logging-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/standard/laravel-framework/config/logging.php
 [stackdriver-error-reporting-php]:http://googleapis.github.io/google-cloud-php/#/docs/cloud-error-reporting/v0.12.3/errorreporting/readme
-[app-exceptions-handler-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/php72/laravel-framework/app/Exceptions/Handler.php
+[app-exceptions-handler-php]: https://github.com/GoogleCloudPlatform/php-docs-samples/blob/master/appengine/standard/laravel-framework/app/Exceptions/Handler.php

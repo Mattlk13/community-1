@@ -1,13 +1,18 @@
 ---
-title: Adding Computer Vision to your Android App
-description: Learn how to use Firebase storage with Cloud functions to access the Vision API from Android apps.
+title: Adding computer vision to your Android app
+description: Learn how to use Firebase storage with Cloud Functions to access the Vision API from Android apps.
 author: gguuss
 tags: Android, Vision, Firebase, Storage, Firebase Datastore
 date_published: 2017-12-05
 ---
 
+Gus Class | Developer Advocate | Google
+
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
+
 Sara Robinson has authored an excellent post explaining one approach
-to [Adding Computer Vision to your App](https://medium.com/@srobtweets/adding-computer-vision-to-your-ios-app-66d6f540cdd2).
+to [Adding computer vision to your app](https://medium.com/@srobtweets/adding-computer-vision-to-your-ios-app-66d6f540cdd2).
+
 In the post, she introduces the following pattern:
 
 * Use Firebase Auth native client to upload to Firebase Storage.
@@ -51,12 +56,12 @@ This step uses the functionality of the sample app. In the sample
 app, a service named `MyUploadService` is implemented to upload a file outside of the
 main application thread. 
 
-The [**uploadFromUri** function in the sample app](https://github.com/firebase/quickstart-android/blob/master/storage/app/src/main/java/com/google/firebase/quickstart/firebasestorage/MainActivity.java#L174)
+The [`uploadFromUri` function in the sample app](https://github.com/firebase/quickstart-android/blob/f6e021c2bf4ddd3d06908480c909da0ac8175371/storage/app/src/main/java/com/google/firebase/quickstart/firebasestorage/java/MainActivity.java#L178)
 illustrates the bulk of the operations performed by the provided service.
 
-After the file is uploaded, the __fileUri__ is passed in an **Intent** so that
-the **MainActivity** class can retrieve the file data. This is done in the sample
-app in the [**MyUploadService** activity's **broadcastUploadFinished** method](https://github.com/firebase/quickstart-android/blob/master/storage/app/src/main/java/com/google/firebase/quickstart/firebasestorage/MyUploadService.java#L127).
+After the file is uploaded, the `fileUri` is passed in an **Intent** so that
+the `MainActivity` class can retrieve the file data. This is done in the sample
+app in the [`MyUploadService` activity's `broadcastUploadFinished` method](https://github.com/firebase/quickstart-android/blob/f6e021c2bf4ddd3d06908480c909da0ac8175371/storage/app/src/main/java/com/google/firebase/quickstart/firebasestorage/java/MyUploadService.java#L151).
 
 You can verify that the storage operation
 works by visiting the Firebase console for storage and seeing the uploaded
@@ -66,6 +71,7 @@ files:
 
 
 ## Step 2: Analyze the image and publish label data to Firestore
+
 Now that the files are successfully uploading to Firebase Storage, it's time
 to process the file using a Cloud Functions call. This operation is virtually
 identical to the Cloud Functions API call made by Sara in her post, but retrieves
@@ -87,6 +93,7 @@ console.
 
 
 ## Step 3: Manually retrieve the label data from Firestore
+
 This tutorial reuses and relabels the **Download** button from the Firebase Storage sample
 app to manually trigger the retrieval of the `Label` data from Firestore. To do
 this, the button name is changed to `button_detections` in the app resources
@@ -102,10 +109,10 @@ The following code shows how to retrieve the metadata for the last uploaded imag
 It might be best to do this in a separate service, but for the
 purposes of this proof of concept, this should be sufficient. Also, this replaces
 the proto-style object characters with JSON-style object characters because of
-manually filtering the result data in **UpdateUI**.
+manually filtering the result data in `UpdateUI`.
 
-When **UpdateUI** is called, the sample app checks the stored member variable
-__mResponse__ and then filters the label description strings from the result
+When `UpdateUI` is called, the sample app checks the stored member variable
+`mResponse` and then filters the label description strings from the result
 data.
 
 [![Code for step 3c](https://storage.googleapis.com/gcp-community/tutorials/android-firebase-vision/code3c.png)](https://github.com/GoogleCloudPlatform/community/tree/master/tutorials/android-firebase-vision/code-step-3c.txt)
@@ -119,6 +126,7 @@ you could employ a similar approach but by storing text data instead of photo
 data.
 
 ## Next steps
+
 If you want to prepare this app for production, think about the following items:
 
 * Fix all the UI - Create label bubbles instead of just formatted text.

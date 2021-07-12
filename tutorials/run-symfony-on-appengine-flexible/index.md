@@ -6,20 +6,19 @@ tags: App Engine, Symfony, PHP
 date_published: 2017-03-15
 ---
 
-## Symfony
+Brent Shaffer | Developer Programs Engineer | Google
 
-"[Symfony][symfony] is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony." – symfony.com
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
 
-You can check out [PHP on Google Cloud Platform][php-gcp] to get an
-overview of PHP itself and learn ways to run PHP apps on Google Cloud
-Platform.
+You can check out [PHP on Google Cloud][php-gcp] to get an
+overview of PHP itself and learn ways to run PHP apps on Google Cloud.
 
 ## Prerequisites
 
-1. [Create a project][create-project] in the Google Cloud Platform Console
+1. [Create a project][create-project] in the Cloud Console
    and make note of your project ID.
 1. [Enable billing][enable-billing] for your project.
-1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
+1. Install the [Cloud SDK](https://cloud.google.com/sdk/).
 
 ## Prepare
 
@@ -82,7 +81,7 @@ Welcome page.
 ### Setup
 
 1. Follow the instructions to set up a
-   [Google Cloud SQL Second Generation instance for MySQL][cloudsql-create].
+   [Cloud SQL Second Generation instance for MySQL][cloudsql-create].
 
 1. Follow the instructions to
    [install the Cloud SQL proxy client on your local machine][cloudsql-install].
@@ -236,7 +235,7 @@ Welcome page.
 [cloudsql-apis]:https://pantheon.corp.google.com/apis/library/sqladmin.googleapis.com/?pro
 
 [create-project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
-[enable-billing]: https://support.google.com/cloud/answer/6293499?hl=en
+[enable-billing]: https://support.google.com/cloud/answer/6293499
 [php-gcp]: https://cloud.google.com/php
 [symfony]: http://symfony.com
 [symfony-install]: http://symfony.com/doc/current/setup.html

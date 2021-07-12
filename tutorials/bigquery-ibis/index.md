@@ -1,10 +1,14 @@
 ---
-title: Query BigQuery With Python Using Ibis
+title: Query BigQuery with Python using Ibis
 description: Learn how to use the Ibis Python library to query BigQuery tables without writing SQL code.
 author: tswast
 tags: BigQuery, Ibis, Python, Data Science
 date_published: 2018-08-13
 ---
+
+Tim Swast | Developer Programs Engineer | Google
+
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
 
 [Ibis](http://ibis-project.org/) is a Python library for doing data
 analysis. It offers a Pandas-like environment for executing data analysis in
@@ -23,17 +27,16 @@ in BigQuery](https://cloud.google.com/bigquery/public-data/stackoverflow).
 ## Before you begin
 
 Follow the instructions in the following guides to set up your environment to
-develop Python code that connects to Google Cloud Platform:
+develop Python code that connects to Google Cloud:
 
 1.  [Set up a Python development environment](https://cloud.google.com/python/setup).
-1.  [Authenticate to Google Cloud Platform with a service
+1.  [Authenticate to Google Cloud with a service
     account](https://cloud.google.com/docs/authentication/getting-started).
 
 ## Costs
 
-This tutorial uses billable components of Cloud Platform including
-BigQuery. Use the [Pricing
-Calculator](https://cloud.google.com/products/calculator/#id=d343aa2d-457b-4778-b4cb-ef0ea35605ea)
+This tutorial uses billable components of Google Cloud including
+BigQuery. Use the [Pricing Calculator](https://cloud.google.com/products/calculator/#id=d343aa2d-457b-4778-b4cb-ef0ea35605ea)
 to estimate the costs for your usage.
 
 The first 1 TB per month of BigQuery queries are free. See [the BigQuery
@@ -43,13 +46,22 @@ to limit your costs](https://cloud.google.com/bigquery/cost-controls).
 
 ## Install Ibis with BigQuery integrations
 
-Install Ibis from the latest version on GitHub, because this tutorial
-requires some features which are not yet released, such as the ability to
-query public datasets.
+Install the Ibis package, which you can download from
+[PyPI](https://pypi.org/project/ibis-framework/) or from
+[conda-forge](https://github.com/conda-forge/ibis-framework-feedstock).
 
 ```
-pip install --upgrade git+https://github.com/ibis-project/ibis.git#egg=ibis_framework[bigquery]
+# PyPI
+pip install --upgrade ibis-framework ibis-bigquery
+
+# conda-forge
+conda config --add channels conda-forge
+conda install ibis-framework ibis-bigquery
 ```
+
+**Note**: At the time of this post, the latest release of Ibis (1.4.0) has an
+[incompatibility with SQLAlchemy version 1.4.x](https://github.com/ibis-project/ibis/issues/2689). You may need to
+install SQLAlchemy 1.3.x before installing Ibis.
 
 ## Connect to BigQuery
 
@@ -59,16 +71,16 @@ default dataset for queries.
 [embedmd]:# (ibis_bigquery.py /^.*START bigquery_ibis_connect.*/ /END bigquery_ibis_connect]/)
 ```py
 import ibis
+import ibis_bigquery
 
-conn = ibis.bigquery.connect(
+conn = ibis_bigquery.connect(
     project_id=YOUR_PROJECT_ID,
     dataset_id='bigquery-public-data.stackoverflow')
 ```
 
 ## Build an expression
 
-Build an [Ibis
-expression](http://docs.ibis-project.org/design.html#expressions)
+Build an [Ibis expression](https://ibis-project.org/user_guide/design.html)
 representing the query you'd like to run. Follow the instructions in this
 example to build a query expression that determines the percentage of Stack
 Overflow questions with answers, grouped by year.
@@ -141,8 +153,7 @@ projection = table['creation_date', 'answer_count']
 
 Call a function on the column to build an expression graph that transforms
 the original column. For example, to extract the year from the created date,
-call the [`year()` timestamp
-method](http://docs.ibis-project.org/api.html#timestamp-methods).
+call the [`year()` timestamp method](http://docs.ibis-project.org/api.html#timestamp-methods).
 
 [embedmd]:# (ibis_bigquery.py /^.*START bigquery_ibis_transform_timestamp.*/ /END bigquery_ibis_transform_timestamp]/)
 ```py
@@ -157,8 +168,7 @@ into a Boolean that indicates if the question has any answers.
 has_answer_boolean = projection.answer_count > 0
 ```
 
-Use the [`ifelse()` boolean
-method](http://docs.ibis-project.org/api.html#boolean-methods) to convert
+Use the [`ifelse()` boolean method](http://docs.ibis-project.org/api.html#boolean-methods) to convert
 from a Boolean back to an integer, because you'll be adding this transformed
 column to construct the percentage.
 
@@ -183,8 +193,7 @@ except AttributeError as exp:
 
 ### Aggregate columns
 
-Use the [column
-methods](http://docs.ibis-project.org/api.html#column-methods) `count()` and
+Use the [column methods](http://docs.ibis-project.org/api.html#column-methods) `count()` and
 `sum()` to calculate the percentage of questions answered.
 
 [embedmd]:# (ibis_bigquery.py /^.*START bigquery_ibis_aggregate.*/ /END bigquery_ibis_aggregate]/)
@@ -247,15 +256,14 @@ print(expression.compile())
 # ORDER BY `year` DESC
 ```
 
-## Next Steps
+## Next steps
 
 You've just run a query on BigQuery with Ibis. No SQL required! Next, you may
 wish to explore how to build more complex queries with Ibis.
 
 ### Write a UDF
 
-Ibis supports [user defined functions in
-BigQuery](http://docs.ibis-project.org/udf.html#bigquery) by compiling Python
+Ibis supports [user defined functions in BigQuery](https://ibis-project.org/backends/bigquery.html) by compiling Python
 code into JavaScript. This means that you can write UDFs for BigQuery in
 Python!
 
@@ -276,8 +284,7 @@ print(conn.execute(expression))
 Combine multiple tables together in your query expression by using joins.
 
 See the [Table methods](http://docs.ibis-project.org/api.html#api-table)
-reference for links to the various join methods. Read the [joins section in
-the guide for SQL programmers](http://docs.ibis-project.org/sql.html#joins)
+reference for links to the various join methods. Read the [joins section in the guide for SQL programmers](https://ibis-project.org/user_guide/sql.html)
 for examples.
 
 [embedmd]:# (ibis_bigquery.py /^.*START bigquery_ibis_joins.*/ /END bigquery_ibis_joins]/)
@@ -307,6 +314,6 @@ print(conn.execute(
 
 ### Resources
 
-- [Ibis tutorial](http://docs.ibis-project.org/tutorial.html)
+- [Ibis tutorials](https://ibis-project.org/tutorial/index.html)
 - [Ibis API reference](http://docs.ibis-project.org/api.html)
-- [Ibis guide for SQL programmers](http://docs.ibis-project.org/sql.html)
+- [Ibis guide for SQL programmers](https://ibis-project.org/user_guide/sql.html)

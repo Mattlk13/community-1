@@ -1,38 +1,42 @@
 ---
-title: Using OpenCensus with Cloud Bigtable and Stackdriver Trace
-description: Implement client-side tracing in Cloud Bigtable with OpenCensus and Stackdriver.
+title: Using OpenCensus with Bigtable and Cloud Trace
+description: Implement client-side tracing in Bigtable with OpenCensus and Cloud Trace.
 author: googledrew
 tags: Cloud Bigtable, OpenCensus, tracing
 date_published: 2019-05-17
 ---
 
-This tutorial shows how to implement client-side tracing and metrics recording in your Cloud Bigtable
-workloads using OpenCensus and Stackdriver. While Cloud Bigtable surfaces a number of helpful server-side
-metrics via Stackdriver, applications can realize added benefits by implementing client-side tracing and
-application defined metrics. For example, server-side metrics do not give you a window into the round-trip
-latency of calls made to your Bigtable endpoint and can only be surfaced using client-side tracing.
+Drew Stevens | Solutions Architect | Google
+
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
+
+This tutorial shows how to implement client-side tracing and metrics recording in your Bigtable
+workloads using OpenCensus and Cloud Trace. Though Bigtable surfaces a number of helpful server-side
+metrics through the Google Cloud operations suite, applications can realize added benefits by implementing client-side tracing and
+application-defined metrics. For example, server-side metrics do not give you information about the round-trip
+latency of calls made to your Bigtable endpoint; this can only be seen using client-side tracing.
 
 ## Costs
 
-This tutorial uses the following billable components of Google Cloud Platform (GCP):
+This tutorial uses the following billable components of Google Cloud:
 
-*   Google Compute Engine
-*   Cloud Bigtable
-*   Stackdriver
+*   Compute Engine
+*   Bigtable
+*   Cloud Trace
 
 You can use the [Pricing Calculator](https://cloud.google.com/products/calculator/) to generate a cost
 estimate based on your projected usage.
 
-New GCP users might be eligible for a [free trial](https://cloud.google.com/free/).
+New Google Cloud users might be eligible for a [free trial](https://cloud.google.com/free/).
 
-We recommend that you deploy this tutorial into an ephemeral project, which can then be deleted once you’re done.
+We recommend that you deploy this tutorial into an ephemeral project, which can then be deleted after you’re done.
 
 ## Before you begin
 
 ### Create a new project
 
-1.  In the GCP Console, go to the [Manage resources page](https://console.cloud.google.com/cloud-resource-manager).
-2.  Select a project, or click **Create Project** to create a new GCP project.
+1.  In the Cloud Console, go to the [Manage resources page](https://console.cloud.google.com/cloud-resource-manager).
+2.  Select a project, or click **Create Project** to create a new Google Cloud project.
 3.  In the dialog, name your project. Make a note of your generated project ID.
 4.  Click **Create** to create a new project.
 
@@ -40,7 +44,7 @@ We recommend that you deploy this tutorial into an ephemeral project, which can 
 
 1.  Start a [Cloud Shell instance](https://console.cloud.google.com/home/dashboard?cloudshell%3Dtrue).
 
-2.  Enable the Google Compute Engine and Cloud Memorystore for Redis Admin APIs by running this command in Cloud Shell:
+2.  Enable the Compute Engine and Memorystore for Redis Admin APIs by running this command in Cloud Shell:
 
         gcloud services enable compute.googleapis.com \
                                bigtable.googleapis.com \
@@ -48,9 +52,9 @@ We recommend that you deploy this tutorial into an ephemeral project, which can 
                                logging.googleapis.com
     
 
-## Creating a Cloud Bigtable instance
+## Creating a Bigtable instance
 
-In Cloud Shell, create a Cloud Bigtable development instance:
+In Cloud Shell, create a Bigtable development instance:
 
     gcloud bigtable instances create cbt-oc \
         --cluster=cbt-oc \
@@ -75,9 +79,9 @@ Create a Compute Engine VM with the necessary security scopes by running the fol
 
         gcloud compute ssh trace-client --zone=us-central1-c
         
-1.  Run the following command to install Git, the Java 8 JDK, and Maven:
+1.  Run the following command to install Git, the Java 11 JDK, and Maven:
 
-        sudo apt-get install git openjdk-8-jdk maven -y
+        sudo apt-get install git openjdk-11-jdk maven -y
 
 1.  Clone the source repository for this tutorial:
 
@@ -98,9 +102,9 @@ Update the Java application with some configuration specific to your project.
         mvn package -DskipTests --quiet
         mvn exec:java -Dexec.mainClass=com.example.bigtable.App --quiet
 
-## Viewing traces with Stackdriver Trace
+## Viewing traces with Cloud Trace
 
-1.  Go to the [Stackdriver Trace console](https://cloud.google.com/console/traces)
+1.  Go to the [Cloud Trace console](https://cloud.google.com/console/traces)
 
 1.  Select **Trace List** on the left side to show a table similar to the following:
 
@@ -123,21 +127,23 @@ Below **ReadRows**, you can first see the get operation, followed by the table s
 The other items included in the trace list, such as **Operation.google.bigtable.admin.v2.BigtableTableAdmin.CreateTable**,  
 occurred outside of the manually defined tracing scope, so these are included as separate operations in the list.
 
-## View the captured metrics with Stackdriver Metrics Explorer
+## View the captured metrics with Metrics Explorer
 
 1.  Navigate to the [Metrics Explorer](https://app.google.stackdriver.com/metrics-explorer).
 
 1.  In the **Find resource type and metric** field, enter the following:
 
+        gce_instance
+
         opencensus/btappmetrics/write_latency
 
 1.  Select this metric from the list.
 
-1.  In the right pane, the distribution heatmap graph is shown.
+1.  In the right pane, select **Heatmap** from the dropdown list, which shows the distribution heatmap graph:
 
 ![](https://storage.googleapis.com/gcp-community/tutorials/bigtable-oc/metrics-heatmap.png)
 
 
 ## Cleaning up
 
-Since this tutorial uses multiple GCP components, please be sure to delete the associated resources once you are done.
+Since this tutorial uses multiple Google Cloud components, please be sure to delete the associated resources once you are done.

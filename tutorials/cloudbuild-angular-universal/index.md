@@ -6,9 +6,11 @@ tags: Cloud Build, Angular Universal
 date_published: 2018-11-08
 ---
 
-# Perform Angular server-side (pre-)rendering with Cloud Build
+John LaBarge | Solutions Architect | Google
 
-This tutorial will show you how to pre-generate [server-side rendered Angular pages](https://angular.io/guide/universal)
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
+
+This tutorial shows you how to pre-generate [server-side rendered Angular pages](https://angular.io/guide/universal)
 using Cloud Build. Server-side rendering helps facilitate web crawlers (SEO), improve performance on mobile and low-powered
 devices, and show the first page quickly.
 
@@ -16,14 +18,14 @@ devices, and show the first page quickly.
 
 ## Prerequisites
 
-1.  A Google Cloud Platform (GCP) account  [get a trial account here](https://console.cloud.google.com/freetrial?authuser=2&_ga=2.213928212.-2042919442.1528299768&_gac=1.89261801.1536929612.CjwKCAjwuO3cBRAyEiwAzOxKslw2lWJAN82nAhsu1azihQgX_7aQjek2MPEjanoAwKL5g70Rp0b9zRoCgFwQAvD_BwE)
+1.  A Google Cloud account ([Get a trial account here.](https://console.cloud.google.com/freetrial?authuser=2&_ga=2.213928212.-2042919442.1528299768&_gac=1.89261801.1536929612.CjwKCAjwuO3cBRAyEiwAzOxKslw2lWJAN82nAhsu1azihQgX_7aQjek2MPEjanoAwKL5g70Rp0b9zRoCgFwQAvD_BwE))
 1.  The necessary permissions; either:
     1.  **Project editor** access to an existing project
     1.  **Create a new project** permissions in an existing organization
     
 ## (OPTIONAL) Create a project with a billing account attached
 
-This task helps you setup a new GCP project in which to run an Angular application.
+This task helps you setup a new Google Cloud project in which to run an Angular application.
 **(You can also use an existing project and skip to the next step.)**
 
 ```sh
@@ -217,17 +219,19 @@ You will create a repository called `tour-of-heroes-universal`
 
 ### Create a build trigger that will build, test and deploy your application to the Cloud CDN
 
-You can create a trigger on the [build triggers page](https://console.cloud.google.com/cloud-build/triggers) of the GCP Console by following these steps:
+You can create a trigger on the [build triggers page](https://console.cloud.google.com/cloud-build/triggers) of the Cloud Console by following these steps:
 
-1.  Click **Create Trigger** OR **Add Trigger**.
-1.  Select **Cloud Source Repository** and click **Continue**.
-1.  Select ```tour-of-heroes-universal``` and click **Continue**.
-1.  Enter ```angular-universal-tour``` for **Name**.
-1.  Under **Trigger type** select "Tag".
-1.  Under **Build configuration** select `cloudbuild.yaml`.
-1.  Under **Substitution variables** press **+ Add item**.
-1.  In the **Variable** field enter `_ANGULAR_APP_BUCKET_PATH` and in **Value** enter `gs://[PROJECT]-angular-app` where `[PROJECT]` is the name of your project.
 1.  Click **Create Trigger**.
+1.  In the **Name** field, enter `angular-universal-tour`.
+1.  Under **Event**, select **Push to a tag**.
+1.  Under **Source**, select `tour-of-heroes-universal` as your
+    **Repository** and the tag to match as your **Tag**.
+1.  Under **Build Configuration**, select **Cloud Build configuration file (yaml or json)**.
+1.  In the **Cloud Build configuration file location**, enter `cloudbuild.yaml`.
+1.  Under **Substitution variables**, click **+ Add variable**.
+1.  In the **Variable** field enter `_ANGULAR_APP_BUCKET_PATH` and in **Value**
+    enter `gs://[PROJECT]-angular-app`, where `[PROJECT]` is the name of your project.
+1.  Click **Create** to save your build trigger.
 
 ### Add your tour-of-heroes Cloud Source repository as a remote repository with the name 'google'
 
@@ -281,8 +285,8 @@ You can create a trigger on the [build triggers page](https://console.cloud.goog
 
 3.  Delete the build trigger:
 
-    1. Navigate to the [build triggers page](https://console.cloud.google.com/cloud-build/triggers) of the GCP Console 
-    1. On the line of the build trigger "tour-of-heroes-universal" select the menu ![trigger button](https://storage.googleapis.com/gcp-community/tutorials/cloudbuild-angular-universal/trigger-button.png)
+    1. Navigate to the [build triggers page](https://console.cloud.google.com/cloud-build/triggers) of the Cloud Console 
+    1. On the line of the build trigger "tour-of-heroes-universal", select the menu ![trigger button](https://storage.googleapis.com/gcp-community/tutorials/cloudbuild-angular-universal/trigger-button.png)
     1. Select **Delete**
 
 4.  Delete the Cloud Source repository:

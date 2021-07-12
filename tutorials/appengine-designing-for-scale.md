@@ -1,12 +1,14 @@
 ---
 title: Designing for scale on App Engine standard environment
 description: Learn some best practices to ensure that your app will scale to high load on App Engine standard environment.
-author: alexium
+author: jmdobry
 tags: App Engine
 date_published: 2017-01-27
 ---
 
-App Engine is a scalable system which will automatically add more capacity as
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
+
+App Engine is a scalable system that automatically adds more capacity as
 workloads increase.
 
 Here are some best practices to ensure that your app will scale to high load.
@@ -54,10 +56,7 @@ This is known as contention.
 [errors]: https://cloud.google.com/appengine/articles/handling_datastore_errors
 
 Datastore write rates to a single entity group can exceed the one per second
-limit so load tests might not show this problem. Some suggestions for designing
-your application to reduce write rates on entity groups are in the [Datastore contention article][contention].
-
-[contention]: https://cloud.google.com/appengine/articles/scaling/contention
+limit so load tests might not show this problem.
 
 ## Avoid high write rates to Datastore keys that are lexicographically close
 
@@ -89,10 +88,6 @@ you can hit this problem:
 * You will also see this problem if you create new entities at a high rate with
   a monotonically increasing indexed property like a timestamp, because these
   properties are the keys for rows in the index tables in Bigtable.
-
-For a more detailed explanation of this issue, see [Ikai Lan's blog posting on saving monotonically increasing values in the Datastore][ikaisays].
-
-[ikaisays]: http://ikaisays.com/2011/01/25/app-engine-datastore-tip-monotonically-increasing-values-are-bad/
 
 ## Do not set a spending limit that could be exceeded
 
@@ -158,7 +153,7 @@ performance settings will, in most cases, enable the lowest possible latency. A
 trade-off for low latency is usually higher costs due to having additional idle
 instances that can handle temporary spikes in load.
 
-[auto_scaling]: https://cloud.google.com/appengine/docs/python/an-overview-of-app-engine#Python_Instance_scaling_and_class
+[auto_scaling]: https://cloud.google.com/appengine/docs/standard/python/how-instances-are-managed#scaling_types
 
 You should set [min_idle_instances][idle] if you want to minimize latency,
 particularly if you expect sudden spikes in traffic. The number of idle

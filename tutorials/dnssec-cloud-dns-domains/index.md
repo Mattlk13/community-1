@@ -8,6 +8,8 @@ date_published: 2017-10-11
 
 Alexander Dupuy | Software Engineer | Google
 
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
+
 [DNSSEC][1] (DNS Security Extensions) authenticates DNS answers to block
 forgeries and is the basis for [DANE e‑mail security][2]. Google Cloud DNS can
 use DNSSEC to sign the managed zones for your domains. But until you add a DS
@@ -195,7 +197,7 @@ supporting DNSSEC. Domain registrars may only support DNSSEC for some top-level
 domains.
 
 [specific]: #domain-registrar-specific-instructions
-[11]: https://www.icann.org/resources/pages/deployment-2012-02-25-en
+[11]: http://dnssec-deployment.icann.org/en/dnssec/deploy.htm
 
 If your TLD registry supports DNSSEC but your domain registrar does not, you can
 transfer the domain to another domain registrar. Make sure the new domain
@@ -635,7 +637,7 @@ supports DNSSEC for these top-level domains: `.com .net org .uk .biz .com.au
 adding a DS record, but have [40 signed domains][32] in new gTLs. Contact them
 for support at http://www.csc.com/contact_us/flxwd/93606.
 
-[30]: https://www.icann.org/resources/pages/deployment-2012-02-25-en
+[30]: http://dnssec-deployment.icann.org/en/dnssec/deploy.htm
 [31]: https://icannwiki.org/CSC_Corporate_Domains,_Inc.
 [32]: https://ntldstats.com/registrar/299-CSC-Corporate-Domains-Inc
 

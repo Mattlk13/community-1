@@ -1,10 +1,14 @@
 ---
 title: On Beyond Magpie 2 - entity analysis
-description: An introduction to the Cloud Natural Language API, aimed at Advanced Placement Computer Science classes who have worked on the Magpie lab, but suitable for most people starting with the Cloud Natural Language API. Demonstrates how to parse JSON results from the  Cloud Natural Language API.
+description: An introduction to the Cloud Natural Language API, aimed at Advanced Placement Computer Science classes who have worked on the Magpie lab, but suitable for most people starting with the Cloud Natural Language API. Demonstrates how to parse JSON results from the Cloud Natural Language API.
 author: Annie29
 tags: Cloud Natural Language API, APCS, JSON, Magpie, education
 date_published: 2017-03-28
 ---
+
+Laurie White | Developer Programs Engineer | Google
+
+<p style="background-color:#CAFACA;"><i>Contributed by Google employees.</i></p>
 
 The Advanced Placement Computer Science A program provides the [Magpie lab](http://media.collegeboard.com/digitalServices/pdf/ap/ap-compscia-magpie-lab-student-guide.pdf) for students to practice using basic control structures to parse user input as part of a chatbot. This tutorial is designed to be an additional enrichment exercise (typically used after the AP exam) to go beyond  basic parsing and instead use Google's [Cloud Natural Language API][nlp], a pretrained machine learning model that will do text analysis for the user. The lab demonstrates how to use the Cloud Natural Language API to extract entities from user input.
 
@@ -16,9 +20,9 @@ This tutorial is written for an audience of CS teachers who are exposing their s
 
 If you've completed [On Beyond Magpie, Part 0][magpie0], you should have all of the prerequisites completed. Otherwise,
 
-1. Create a project in the [Google Cloud Platform Console][console].
+1. Create a project in the [Cloud Console][console].
 1. Enable billing for your project.
-1. Ensure the Cloud Natural Language API is enabled by going to the [API manager][manager] from the main GCP menu.
+1. Ensure the Cloud Natural Language API is enabled by going to the [API manager][manager] from the main Google Cloud menu.
 1. Generate an API key for your project.
 
 Sample code for a complete chatbot and full description of the steps involved in making a POST call in Java are included in [On Beyond Magpie: Part 1, Sentiment Analysis][magpie1].
@@ -68,7 +72,7 @@ The complete code to call the API and put the results in a string is below:
 
 The results of the POST call are returned using JSON format. There are numerous libraries which will do JSON parsing in Java but currently there is no standard library. This tutorial will use the GSON library, available at [Github] (https://github.com/google/gson) and for [download as a jar file](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.6.2/).
 
-Once a string representing the JSON data is created, it can be sent to the GSON library, which will return an object that represents the data. You will need to create a class that represents the data you are interested in, based on the return types of the [Cloud Natural Language API](https://cloud.google.com/natural-language/docs/reference/rest/v1beta1/documents/analyzeEntities). This object is an instance of the class  `AnalyzeEntitiesResponse`, shown below. You will need to define this class in your `Magpie` class.
+Once a string representing the JSON data is created, it can be sent to the GSON library, which will return an object that represents the data. You will need to create a class that represents the data you are interested in, based on the return types of the [Cloud Natural Language API](https://cloud.google.com/natural-language/docs/reference/rest/v1/documents/analyzeEntities). This object is an instance of the class  `AnalyzeEntitiesResponse`, shown below. You will need to define this class in your `Magpie` class.
 
 ```java
 public class AnalyzeEntitiesResponse {
